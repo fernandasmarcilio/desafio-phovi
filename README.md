@@ -35,3 +35,5 @@ Opcionais:
 - Validar campos com formik + yup.
 
 - Ler trivia enviado do firebase
+
+- Fazer commits simples e descritivos
