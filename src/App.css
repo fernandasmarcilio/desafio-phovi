@@ -1,0 +1,107 @@
+.App {
+  text-align: center;
+  background-image: linear-gradient( 135deg, #90F7EC 10%, #32CCBC 100%);
+  min-height: 100vh;
+
+}
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color:#000;
+}
+
+.category-title{
+  color : #000
+}
+
+.category-score{
+  color : #000
+}
+
+.table{
+  align-self:center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+form {
+  margin:15px;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+  align-self: center;
+}
+
+form div{
+  margin: 8px 0px;
+}
+
+.question{
+  margin:0px 5px !important;
+}
+
+h5{
+  margin: 5px;
+}
+
+.questionContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton{
+  margin:30px 0px!important;
+}
+
+
+.addTriviaButton{
+  display: flex;
+  flex:1;
+  min-width:20% !important;
+}
+
+textarea{
+  width:60%;
+  margin-bottom: 30px !important;
+}
+
+.generateContainer{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.buttonMargin{
+  margin:10px !important;
+}
+
+
+.buttonSideMargin{
+  margin:0px 10px !important;
+}
+
+
+.modal{
+  display:flex;
+  align-self:center;
+  justify-content: center;
+  margin:auto;
+  width: 400px;
+  background-color: #fff;
+}
+
+.modalContainer{
+  background-color: #fff;
+}
