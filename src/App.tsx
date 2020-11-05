@@ -24,21 +24,6 @@ function App() {
   const [triviaTitle, setTriviaTitle] = useState("");
   const [triviaPhotoUrl, setTriviaPhotoUrl] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [typingTimer, setTypingTimer] = useState<any>(null);
-  const [modalData, setModalData] = useState<Array<any>>([
-    "dark",
-    "disneyClassics",
-    "friends",
-    "gameOfThrones",
-    "generalKnowledge",
-    "harryPotter",
-    "horrorMovies",
-    "music",
-    "peakyBlinders",
-    "sports",
-    "technology",
-    "theOffice",
-  ]);
   const [generatedTrivia, setGeneratedTrivia] = useState<any>("");
   const [triviaProportion, setTriviaProportion] = useState<any>({});
   const [triviaQuestions, setTriviaQuestions] = useState<Array<any>>(() => {
@@ -48,6 +33,7 @@ function App() {
     }
     return [];
   });
+  const [data, setData] = useState<any>([]);
 
   const textAreaRef = useRef<any>(null);
 
@@ -71,7 +57,24 @@ function App() {
         falseAnswers: Math.round((falseAnswers / total) * 100),
       });
     }
+
+    firebase
+      .collection("trivias")
+      .get()
+      .then((snapshot) => {
+        const response = [] as any;
+        snapshot.forEach((doc) => {
+          const docData = doc.data();
+          response.push(docData);
+        });
+        setData(response);
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
   }, [triviaType, generatedTrivia, triviaQuestions]);
+
+  console.log(data);
 
   function copyToClipboard(e) {
     if (textAreaRef) {
@@ -156,19 +159,25 @@ function App() {
     }
   };
 
-  const loadTriviaData = async (selectedTrivia) => {
-    setTriviaQuestions(dark?.deck);
-    setTriviaTitle(dark?.title);
-    setTriviaPhotoUrl(dark?.photoUrl);
-    setTriviaType("singleChoice");
-    // await firebase.firestore().collection('trivias').doc(selectedTrivia).get()
-    //     .then((doc) => {
-    //       const data = /codigo aqui*/
-    //       setTriviaQuestions(data?.deck);
-    //       setTriviaTitle(data?.title);
-    //       setTriviaPhotoUrl(data?.photoUrl);
-    //       setTriviaType('singleChoice')
-    //     });
+  const loadTriviaData = async (selectedTrivia: string) => {
+    await firebase
+      .collection("trivias")
+      .doc(selectedTrivia)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const docData = doc.data();
+          setTriviaQuestions(docData?.deck);
+          setTriviaTitle(docData?.title);
+          setTriviaPhotoUrl(docData?.photoUrl);
+          setTriviaType(docData?.type);
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
   };
 
   const handleSendToFirebase = async () => {
@@ -209,17 +218,18 @@ function App() {
         <div className="modalContainer">
           <h2>Select one trivia</h2>
           <div>
-            {modalData.map((item) => (
+            {data.map((item) => (
               <Button
+                key={item.title}
                 variant="outlined"
                 color="primary"
                 onClick={() => {
-                  loadTriviaData(item);
+                  loadTriviaData(item.title);
                   setOpenModal(false);
                 }}
                 className="buttonMargin"
               >
-                {item}
+                {item.title}
               </Button>
             ))}
           </div>
