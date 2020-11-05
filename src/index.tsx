@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./assets/styles/global.css";
-import App from "./App";
+import TriviaMaker from "./pages/TriviaMaker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TriviaMaker />
   </React.StrictMode>,
   document.getElementById("root")
 );
