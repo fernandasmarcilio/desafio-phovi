@@ -27,7 +27,12 @@ const GenerateTrivia: React.FC<GenerateTriviaProps> = ({
         <MdContentCopy />
       </button>
 
-      <textarea ref={textAreaRef} rows={rows} value={generatedTrivia} />
+      <textarea
+        ref={textAreaRef}
+        rows={rows}
+        value={generatedTrivia}
+        onChange={() => {}}
+      />
     </div>
   );
 };

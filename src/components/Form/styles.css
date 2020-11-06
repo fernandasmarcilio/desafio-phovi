@@ -2,10 +2,6 @@
   width: 90%;
 }
 
-.form-container div {
-  margin: 0 10px;
-}
-
 .buttonForm {
   width: auto;
   padding: 10px;
@@ -34,9 +30,14 @@ form div {
   justify-content: center;
   width: 90%;
   margin-bottom: 20px;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .image-form {
+  background: rgba(0, 0, 0, 0.05);
   width: 600px;
   height: 300px;
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -55,12 +56,6 @@ form div {
   flex-direction: column;
   width: 100%;
   margin: 0 0 0 10px;
-}
-
-.multiple-choice {
-  border-top: 1px dashed rgba(0, 0, 0, 0.54);
-  margin-top: 10px;
-  padding-top: 10px;
 }
 
 .questions-input .input-block {

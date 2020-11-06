@@ -26,16 +26,16 @@
   display: none;
 }
 
-/* .modal {
-  align-self: center;
-  justify-content: center;
-  margin: auto;
-  width: 400px;
-  height: 100%;
-} */
-
 .modalContainer {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
+}
+
+.modalContainer div {
+  margin-top: 10px;
+}
+
+.modalContainer div > button {
+  margin-bottom: 10px;
 }

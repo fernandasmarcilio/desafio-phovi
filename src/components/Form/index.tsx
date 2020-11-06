@@ -4,7 +4,6 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 
 import "./styles.css";
-import { Tooltip } from "@material-ui/core/";
 
 interface FormProps {
   triviaType: string;
@@ -99,16 +98,14 @@ const Form: React.FC<FormProps> = ({
               }
             />
             {triviaType === "multipleChoice" && (
-              <Tooltip title="Separe as alternativas com enter">
-                <Input
-                  name={`answers-${index}`}
-                  label="Answers"
-                  value={question.answers}
-                  onChange={(e) =>
-                    handleChangeTriviaData("answers", e.target.value, index)
-                  }
-                />
-              </Tooltip>
+              <Input
+                name={`answers-${index}`}
+                label="Answers"
+                value={question.answers}
+                onChange={(e) =>
+                  handleChangeTriviaData("answers", e.target.value, index)
+                }
+              />
             )}
             <Input
               name={`correct_answer-${index}`}
