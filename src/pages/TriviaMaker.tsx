@@ -39,7 +39,9 @@ function TriviaMaker() {
     trueAnswers: 0,
     falseAnswers: 0,
   });
-  const [triviaQuestions, setTriviaQuestions] = useState<Array<any>>([]);
+  const [triviaQuestions, setTriviaQuestions] = useState<
+    Array<TriviaQuestions>
+  >([]);
   const [data, setData] = useState<Array<TriviaDeck>>([]);
 
   const textAreaRef = useRef<any>(null);
@@ -50,9 +52,9 @@ function TriviaMaker() {
       let falseAnswers = 0;
 
       triviaQuestions.map((trivia) => {
-        if (trivia.correct_answer === true) {
+        if (trivia.correct_answer === "true") {
           trueAnswers += 1;
-        } else if (trivia.correct_answer === false) {
+        } else if (trivia.correct_answer === "false") {
           falseAnswers += 1;
         }
       });
@@ -86,19 +88,15 @@ function TriviaMaker() {
       });
   }, [triviaType, generatedTrivia, triviaQuestions]);
 
-  function copyToClipboard(e) {
+  function copyToClipboard(event: React.ChangeEvent<HTMLInputElement>) {
     if (textAreaRef) {
       textAreaRef.current.select();
       document.execCommand("copy");
-      e.target.focus();
+      event.target.focus();
     }
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTriviaType(event.target.value);
-  };
-
-  const handleDelete = (questionIndex) => {
+  const handleDelete = (questionIndex: number) => {
     setTriviaQuestions(
       triviaQuestions.filter((trivia, index) => index !== questionIndex)
     );
@@ -107,7 +105,7 @@ function TriviaMaker() {
   const handleAddQuestion = () => {
     setTriviaQuestions([
       ...triviaQuestions,
-      { question: "", answers: "", correct_answer: "" },
+      { question: "", answers: "", correct_answer: "", image_url: "" },
     ]);
   };
 
@@ -145,7 +143,6 @@ function TriviaMaker() {
         "I mean,really really sure?"
       );
       if (easterEggConfirmation) {
-        localStorage.clear();
         setTriviaQuestions([]);
         setGeneratedTrivia("");
         setTriviaPhotoUrl("");
@@ -231,7 +228,6 @@ function TriviaMaker() {
         setTriviaTitle={setTriviaTitle}
         setTriviaPhotoUrl={setTriviaPhotoUrl}
         setTriviaType={setTriviaType}
-        handleChange={handleChange}
         handleChangeTriviaData={handleChangeTriviaData}
         handleDelete={handleDelete}
         handleAddQuestion={handleAddQuestion}

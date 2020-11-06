@@ -29,7 +29,6 @@ interface FormProps {
   setTriviaPhotoUrl: Function;
   setTriviaTitle: Function;
   setTriviaType: Function;
-  handleChange: Function;
   handleChangeTriviaData: Function;
   handleDelete: Function;
   handleAddQuestion: Function;
