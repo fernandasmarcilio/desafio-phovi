@@ -24,55 +24,64 @@ code {
   height: 45px;
   border: none;
   border-radius: 5px;
-  background-color: #cd05ff;
+  background-color: #b905e6;
   color: #fff;
   font-weight: 600;
   font-size: 18px;
   width: 100%;
+  cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .button:hover,
 .button:focus {
-  background-color: #b905e6;
+  background-color: #a404cc;
 }
 
 .button-icon {
   height: 45px;
   border: none;
   border-radius: 5px;
-  background-color: #cd05ff;
+  background-color: #b905e6;
   color: #fff;
   font-weight: 600;
   font-size: 18px;
   width: 100%;
+  cursor: pointer;
   transition: background-color 0.2s;
 
   min-width: 150px;
   padding: 5px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+}
+
+.button-icon svg {
+  font-size: 24px;
+  margin-left: 10px;
 }
 
 .button-icon:hover,
 .button-icon:focus {
-  background-color: #b905e6;
+  background-color: #a404cc;
 }
 
 .button-delete {
-  background-color: #cc2644;
+  width: 100px;
+  align-self: flex-end;
+  background-color: #b04541;
   transition: background-color 0.2s;
 }
 
 .button-delete:hover {
-  background-color: #b3223c;
+  background-color: #bd4a46;
 }
 
 .button-default {
   background-color: #fff;
-  color: #cd05ff;
-  border: 1px solid #cd05ff;
+  color: #b905e6;
+  border: 1px solid #b905e6;
   transition: background-color 0.2s;
 }
 

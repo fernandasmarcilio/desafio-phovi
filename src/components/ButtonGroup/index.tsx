@@ -1,7 +1,8 @@
 import React from "react";
 
 import "./styles.css";
-import { Icon } from "@material-ui/core/";
+import { MdSend, MdDeleteForever } from "react-icons/md";
+import { SiFirebase } from "react-icons/si";
 
 interface ButtonGroupProps {
   handleGenerateTrivia: Function;
@@ -22,7 +23,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         onClick={() => handleGenerateTrivia()}
       >
         Generate
-        <Icon>send</Icon>
+        <MdSend />
       </button>
       <button
         type="button"
@@ -30,7 +31,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         onClick={() => handleResetTrivias()}
       >
         Reset All
-        <Icon>delete_forever</Icon>
+        <MdDeleteForever />
       </button>
       <button
         type="button"
@@ -38,7 +39,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         onClick={() => handleSendToFirebase()}
       >
         Send to firebase
-        <Icon>local_fire_department</Icon>
+        <SiFirebase />
       </button>
     </div>
   );

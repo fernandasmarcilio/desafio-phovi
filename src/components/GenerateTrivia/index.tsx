@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./styles.css";
-import { Icon } from "@material-ui/core/";
+import { MdContentCopy } from "react-icons/md";
 
 interface GenerateTriviaProps {
   textAreaRef: any;
@@ -24,7 +24,7 @@ const GenerateTrivia: React.FC<GenerateTriviaProps> = ({
         onClick={(e) => copyToClipboard(e)}
       >
         Copy
-        <Icon>content_copy</Icon>
+        <MdContentCopy />
       </button>
 
       <textarea ref={textAreaRef} rows={rows} value={generatedTrivia} />
