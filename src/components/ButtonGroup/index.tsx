@@ -1,5 +1,7 @@
 import React from "react";
-import { Button, Icon } from "@material-ui/core/";
+
+import "./styles.css";
+import { Icon } from "@material-ui/core/";
 
 interface ButtonGroupProps {
   handleGenerateTrivia: Function;
@@ -13,34 +15,31 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   handleSendToFirebase,
 }) => {
   return (
-    <div>
-      <Button
-        variant="contained"
-        color="default"
-        endIcon={<Icon>send</Icon>}
-        className="submitButton"
+    <div className="container-button-group">
+      <button
+        type="button"
+        className="button-icon button-default"
         onClick={() => handleGenerateTrivia()}
       >
         Generate
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        endIcon={<Icon>delete_forever</Icon>}
-        className="buttonSideMargin"
+        <Icon>send</Icon>
+      </button>
+      <button
+        type="button"
+        className="button-icon button-default"
         onClick={() => handleResetTrivias()}
       >
         Reset All
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        endIcon={<Icon>local_fire_department</Icon>}
-        className="buttonSideMargin"
+        <Icon>delete_forever</Icon>
+      </button>
+      <button
+        type="button"
+        className="button-icon button-default"
         onClick={() => handleSendToFirebase()}
       >
         Send to firebase
-      </Button>
+        <Icon>local_fire_department</Icon>
+      </button>
     </div>
   );
 };

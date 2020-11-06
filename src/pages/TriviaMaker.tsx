@@ -1,45 +1,51 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../assets/styles/App.css";
+import "../assets/styles/TriviaMaker.css";
 
 import firebase from "../firebase";
+import triviaTypeOptions from "../utils/triviaTypeOptions";
 
-import Header from "../components/Header";
-import ModalLoadTrivia from "../components/ModalLoadTrivia";
-import Form from "../components/Form";
-import GenerateTrivia from "../components/GenerateTrivia";
-import ButtonGroup from "../components/ButtonGroup";
+import Header from "../components/Header/index";
+import ModalLoadTrivia from "../components/ModalLoadTrivia/index";
+import Form from "../components/Form/index";
+import GenerateTrivia from "../components/GenerateTrivia/index";
+import ButtonGroup from "../components/ButtonGroup/index";
 
 interface TriviaQuestions {
   question: string;
   answers: string;
   correct_answer: string;
+  image_url: string;
 }
+
 interface TriviaDeck {
   title: string;
   photoUrl: string;
+  type: string;
   deck: Array<TriviaQuestions>;
 }
 
+interface TriviaProportion {
+  trueAnswers: number;
+  falseAnswers: number;
+}
+
 function TriviaMaker() {
-  const [triviaType, setTriviaType] = useState("multipleChoice");
-  const [triviaTitle, setTriviaTitle] = useState("");
-  const [triviaPhotoUrl, setTriviaPhotoUrl] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [generatedTrivia, setGeneratedTrivia] = useState<any>("");
-  const [triviaProportion, setTriviaProportion] = useState<any>({});
-  const [triviaQuestions, setTriviaQuestions] = useState<Array<any>>(() => {
-    const storagedTrivias = localStorage.getItem("@PhoviTriviaMaker:trivias");
-    if (storagedTrivias) {
-      return JSON.parse(storagedTrivias);
-    }
-    return [];
+  const [triviaType, setTriviaType] = useState<string>("multipleChoice");
+  const [triviaTitle, setTriviaTitle] = useState<string>("");
+  const [triviaPhotoUrl, setTriviaPhotoUrl] = useState<string>("");
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [generatedTrivia, setGeneratedTrivia] = useState<string>("");
+  const [triviaProportion, setTriviaProportion] = useState<TriviaProportion>({
+    trueAnswers: 0,
+    falseAnswers: 0,
   });
-  const [data, setData] = useState<any>([]);
+  const [triviaQuestions, setTriviaQuestions] = useState<Array<any>>([]);
+  const [data, setData] = useState<Array<TriviaDeck>>([]);
 
   const textAreaRef = useRef<any>(null);
 
   useEffect(() => {
-    if (triviaType === "singleChoice" && triviaQuestions) {
+    if (triviaType === "singleChoice" && triviaQuestions.length) {
       let trueAnswers = 0;
       let falseAnswers = 0;
 
@@ -56,6 +62,11 @@ function TriviaMaker() {
       setTriviaProportion({
         trueAnswers: Math.round((trueAnswers / total) * 100),
         falseAnswers: Math.round((falseAnswers / total) * 100),
+      });
+    } else {
+      setTriviaProportion({
+        trueAnswers: 0,
+        falseAnswers: 0,
       });
     }
 
@@ -76,25 +87,12 @@ function TriviaMaker() {
   }, [triviaType, generatedTrivia, triviaQuestions]);
 
   function copyToClipboard(e) {
-    console.log(typeof textAreaRef);
-
     if (textAreaRef) {
       textAreaRef.current.select();
       document.execCommand("copy");
       e.target.focus();
     }
   }
-
-  const triviaTypeOptions = [
-    {
-      value: "singleChoice",
-      label: "True/False",
-    },
-    {
-      value: "multipleChoice",
-      label: "Multiple Choice",
-    },
-  ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTriviaType(event.target.value);
@@ -125,10 +123,6 @@ function TriviaMaker() {
   };
 
   const handleGenerateTrivia = () => {
-    localStorage.setItem(
-      "@PhoviTriviaMaker:trivias",
-      JSON.stringify(triviaQuestions)
-    );
     const parsedData = triviaQuestions.map((question) => {
       if (question.answers && question.answers.length !== 0) {
         const answersArray = question.answers.split("\n");
@@ -156,6 +150,10 @@ function TriviaMaker() {
         setGeneratedTrivia("");
         setTriviaPhotoUrl("");
         setTriviaTitle("");
+        setTriviaProportion({
+          trueAnswers: 0,
+          falseAnswers: 0,
+        });
       }
     }
   };
@@ -196,11 +194,27 @@ function TriviaMaker() {
       .catch((err: any) => {
         console.error(err);
       });
+
+    await firebase
+      .collection("trivias")
+      .get()
+      .then((snapshot) => {
+        const response = [] as any;
+        snapshot.forEach((doc) => {
+          const docData = doc.data();
+          response.push(docData);
+        });
+        setData(response);
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
   };
 
   return (
     <div className="App">
       <Header openModal={openModal} setOpenModal={setOpenModal} />
+
       <ModalLoadTrivia
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -216,6 +230,7 @@ function TriviaMaker() {
         triviaProportion={triviaProportion}
         setTriviaTitle={setTriviaTitle}
         setTriviaPhotoUrl={setTriviaPhotoUrl}
+        setTriviaType={setTriviaType}
         handleChange={handleChange}
         handleChangeTriviaData={handleChangeTriviaData}
         handleDelete={handleDelete}

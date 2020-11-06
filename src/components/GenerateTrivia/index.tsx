@@ -1,5 +1,7 @@
 import React from "react";
-import { Icon, IconButton } from "@material-ui/core/";
+
+import "./styles.css";
+import { Icon } from "@material-ui/core/";
 
 interface GenerateTriviaProps {
   textAreaRef: any;
@@ -16,14 +18,15 @@ const GenerateTrivia: React.FC<GenerateTriviaProps> = ({
 }) => {
   return (
     <div className="generateContainer">
-      <IconButton
-        aria-label="content_copy"
-        color="default"
-        onClick={() => copyToClipboard}
+      <button
+        type="button"
+        className="button-icon button-default"
+        onClick={(e) => copyToClipboard(e)}
       >
         Copy
         <Icon>content_copy</Icon>
-      </IconButton>
+      </button>
+
       <textarea ref={textAreaRef} rows={rows} value={generatedTrivia} />
     </div>
   );

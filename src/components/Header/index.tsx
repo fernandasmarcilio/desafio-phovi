@@ -1,5 +1,7 @@
 import React from "react";
-import { Button } from "@material-ui/core/";
+
+import "./styles.css";
+import phoviLogo from "../../assets/images/phoviLogo.svg";
 
 interface HeaderProps {
   openModal: boolean;
@@ -9,15 +11,17 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ openModal, setOpenModal }) => {
   return (
     <header className="App-header">
-      <h3>Trivia Maker</h3>
-      <Button
-        variant="outlined"
-        color="default"
+      <div className="logo-container">
+        <img src={phoviLogo} alt="phovi logo" />
+        <h3>Trivia Maker</h3>
+      </div>
+      <button
+        type="button"
+        className="button"
         onClick={() => setOpenModal(!openModal)}
-        className="addTriviaButton"
       >
         Load Trivias
-      </Button>
+      </button>
     </header>
   );
 };

@@ -1,0 +1,11 @@
+.container-button-group {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  width: 90%;
+  margin: 20px 0;
+}
+
+.container-button-group .button-icon {
+  margin: 0 10px;
+}

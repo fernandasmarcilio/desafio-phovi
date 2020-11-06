@@ -1,5 +1,7 @@
 import React from "react";
-import { Modal, Button } from "@material-ui/core/";
+
+import "./styles.css";
+import { Modal } from "@material-ui/core/";
 
 interface ModalProps {
   openModal: boolean;
@@ -26,18 +28,16 @@ const ModalLoadTrivia: React.FC<ModalProps> = ({
         <h2>Select one trivia</h2>
         <div>
           {data.map((item) => (
-            <Button
+            <button
               key={item.title}
-              variant="outlined"
-              color="primary"
               onClick={() => {
                 loadTriviaData(item.title);
                 setOpenModal(false);
               }}
-              className="buttonMargin"
+              className="button button-default"
             >
               {item.title}
-            </Button>
+            </button>
           ))}
         </div>
       </div>
